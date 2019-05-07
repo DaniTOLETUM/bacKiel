@@ -1,21 +1,24 @@
 {
-  "name": "1_back",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "name": "back",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "server": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "DEBUG=back:* nodemon ./bin/www",
+    "dev-windows": "nodemon ./bin/www"
   },
-  "keywords": [],
-  "author": "Miguel Bento & Daniel Diaz",
-  "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.4",
-    "cors": "^2.8.5",
-    "dotenv": "^8.0.0",
-    "express": "^4.16.4",
-    "mongoose": "^5.5.5",
-    "morgan": "^1.9.1"
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "hbs": "^4.0.1",
+    "mongoose": "^5.2.10",
+    "morgan": "^1.9.0",
+    "node-sass-middleware": "^0.11.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
