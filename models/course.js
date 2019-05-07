@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const productSchema = new Schema({
+
+const courseSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -25,16 +26,18 @@ const productSchema = new Schema({
 
   image: String,
 
-  category: {
-    type: Schema.Types.ObjectId,
-    ref: "Category"
-  },
+  category: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Category"
+    }
+  ],
   date: {
     type: Date,
     default: Date.now
   }
 });
 
-const productModel = mongoose.model("Course", productSchema);
+const courseModel = mongoose.model("Course", courseSchema);
 
-module.exports = productModel;
+module.exports = courseModel;

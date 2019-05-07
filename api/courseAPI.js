@@ -1,11 +1,11 @@
-const courseModel = require("../models/Category");
+const courseModel = require("../models/Course");
 const express = require("express");
 const router = express.Router();
 
 const create = data => courseModel.create(data);
 const updateOne = (id, data) => courseModel.updateOne({ _id: id }, data);
 const deleteOne = id => courseModel.deleteOne({ _id: id });
-const getAll = () => courseModel.find();
+const getAll = () => courseModel.find().populate("owner");
 
 router.get("/", (req, res) => {
   getAll()
