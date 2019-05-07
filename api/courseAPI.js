@@ -18,7 +18,6 @@ router.post("/create", (req, res) => {
   const { categoryId, data } = req.body;
   create(req.body)
     .then(dbRes => {
-      console.log(dbRes);
       res.status(200).send(dbRes);
     })
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
