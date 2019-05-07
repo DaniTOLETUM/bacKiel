@@ -1,10 +1,21 @@
 const mongoose = require("mongoose");
-const userSchema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema(
   {
+    firstname: {
+      type: String,
+      required: true
+    },
+    lastname: {
+      type: String,
+      required: true
+    },
     username: {
       type: String,
       required: true
     },
+
     email: {
       type: String,
       required: true,
@@ -20,6 +31,10 @@ const userSchema = new mongoose.Schema(
       default:
         "https://vignette.wikia.nocookie.net/ghostintheshell/images/f/fe/Laughing_man.svg/revision/latest/scale-to-width-down/300?cb=20100909044445&path-prefix=en"
     },
+
+    interests: [],
+    enroled: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+    finished: [{ type: Schema.Types.ObjectId, ref: "Course" }],
     role: {
       type: String,
       enum: ["admin", "user"],

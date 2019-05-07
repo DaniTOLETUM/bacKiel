@@ -5,25 +5,33 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
-  content: {
+
+  description: {
     type: String,
-    required: true
+    default: "No description provided"
   },
-  image: {
-    type: String,
-    required: false
-  },
-  ref: {
-    type: String,
-    required: true,
-    validate: [
-      val => /^iel\d{6}([A-Z]{1})$/.test(val),
-      "the provided course reference is not valid"
-    ]
-  },
+
+  owner: { type: Schema.Types.ObjectId, ref: "User" },
+
+  followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+
+  modules: [
+    {
+      title: String,
+      description: String,
+      lessons: [{ title: String, subtitle: String, content: String }]
+    }
+  ],
+
+  image: String,
+
   category: {
     type: Schema.Types.ObjectId,
     ref: "Category"
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
