@@ -17,7 +17,7 @@ const courseSchema = new Schema(
 
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
 
-    content: [{ order: Number, lesson: Object }],
+    courseModules: [{ type: Schema.Types.ObjectId, ref: "Module" }],
 
     media: {
       image: String,

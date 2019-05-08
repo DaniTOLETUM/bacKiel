@@ -5,7 +5,8 @@ const router = express.Router();
 const create = data => pathModel.create(data);
 const updateOne = (id, data) => pathModel.updateOne({ _id: id }, data);
 const deleteOne = id => pathModel.deleteOne({ _id: id });
-const getAll = () => pathModel.find().populate("owner");
+const getAll = () => pathModel.find();
+const getOne = id => pathModel.findById({ _id: id });
 
 router.get("/", (req, res) => {
   getAll()
@@ -38,5 +39,6 @@ module.exports = {
   deleteOne,
   updateOne,
   create,
-  getAll
+  getAll,
+  getOne
 };

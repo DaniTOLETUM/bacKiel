@@ -6,6 +6,7 @@ const create = data => categoryModel.create(data);
 const updateOne = (id, data) => categoryModel.updateOne({ _id: id }, data);
 const deleteOne = id => categoryModel.deleteOne({ _id: id });
 const getAll = () => categoryModel.find();
+const getOne = id => categoryModel.findById({ _id: id });
 
 router.get("/", (req, res) => {
   getAll()
@@ -36,5 +37,6 @@ module.exports = {
   deleteOne,
   updateOne,
   create,
-  getAll
+  getAll,
+  getOne
 };
