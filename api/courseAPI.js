@@ -11,7 +11,10 @@ const getAll = () =>
   courseModel
     .find()
     .populate("teacher")
-    .populate("thread");
+    .populate({
+      path: "thread",
+      populate: { path: "comments", populate: { path: "owner" } }
+    });
 
 const getOne = id =>
   courseModel
