@@ -12,19 +12,16 @@ const courseSchema = new Schema({
     default: "No description provided"
   },
 
-  owner: { type: Schema.Types.ObjectId, ref: "User" },
+  teacher: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
 
   followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
 
-  modules: [
-    {
-      title: String,
-      description: String,
-      lessons: [{ title: String, subtitle: String, content: String }]
-    }
-  ],
+  content: { type: String },
 
-  image: String,
+  media: {
+    image: String,
+    video: String
+  },
 
   category: [
     {
@@ -32,6 +29,8 @@ const courseSchema = new Schema({
       ref: "Category"
     }
   ],
+  comments: { type: Schema.Types.ObjectId, ref: "Thread" },
+
   date: {
     type: Date,
     default: Date.now
