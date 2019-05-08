@@ -10,10 +10,15 @@ const User = require('../models/user');
 
 router.post('/create', (req, res, next) => {
   console.log("auth consolelog ", req.body);
-  const { firstName, lastName, email, password } = req.body
+  const { firstName, lastName, email, password, password2 } = req.body
 
   if (!firstName || !lastName || !email || !password) {
     res.json({ message: "provide all data please" });
+    return;
+  }
+
+  if (password !== password2) {
+    res.json({ message: "The passwords have to be equal" });
     return;
   }
 
@@ -37,6 +42,8 @@ router.post('/create', (req, res, next) => {
       if (err) {
         res.json({ message: "Something went wrong saving user to Database" });
         return;
+      } else {
+        console.log("PEEEEEERRRRFECCCTTTT");
       }
 
       req.login(theUser, err => {
