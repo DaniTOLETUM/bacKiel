@@ -6,7 +6,8 @@ const categoryAPI = require("./categoryAPI");
 const create = data => courseModel.create(data);
 const updateOne = (id, data) => courseModel.updateOne({ _id: id }, data);
 const deleteOne = id => courseModel.deleteOne({ _id: id });
-const getAll = () => courseModel.find().populate("owner");
+const getAll = () => courseModel.find().populate("teacher");
+// const getOne = id => courseModel.findById(id).populate("teacher");
 
 router.get("/", (req, res) => {
   getAll()
@@ -15,7 +16,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/create", (req, res) => {
-  const { categoryId, data } = req.body;
   create(req.body)
     .then(dbRes => {
       res.status(200).send(dbRes);

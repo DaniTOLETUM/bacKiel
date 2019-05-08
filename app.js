@@ -1,6 +1,6 @@
 require("dotenv").config();
 require("./config/mongoose-config");
-require("./config/passport")
+require("./config/passport");
 // require("./config/mongo");
 // require("./config/sessions");
 
@@ -26,9 +26,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-// 
-
-
+//
 
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -49,11 +47,14 @@ app.use(cookieParser());
 const categoryAPI = require("./api/categoryAPI").router;
 const courseAPI = require("./api/courseAPI").router;
 const userAPI = require("./api/userAPI").router;
+const commentAPI = require("./api/commentAPI").router;
 const auth = require("./auth/auth");
 
 app.use("/api/category", categoryAPI);
 app.use("/api/user", userAPI);
 app.use("/api/course", courseAPI);
+app.use("/api/comment", commentAPI);
+
 app.use("/api/auth", auth);
 
 module.exports = app;

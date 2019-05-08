@@ -13,7 +13,7 @@ const courseSchema = new Schema(
       default: "No description provided"
     },
 
-    teacher: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
+    teacher: [{ type: Schema.Types.ObjectId, ref: "User" }],
 
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
 
