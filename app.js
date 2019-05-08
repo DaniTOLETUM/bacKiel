@@ -49,10 +49,11 @@ app.use(cookieParser());
 const categoryAPI = require("./api/categoryAPI").router;
 const courseAPI = require("./api/courseAPI").router;
 const userAPI = require("./api/userAPI").router;
-
+const auth = require("./auth/auth");
 
 app.use("/api/category", categoryAPI);
 app.use("/api/user", userAPI);
 app.use("/api/course", courseAPI);
+app.use("/api/auth", auth)
 
 module.exports = app;
