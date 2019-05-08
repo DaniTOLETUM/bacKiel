@@ -3,9 +3,11 @@ const express = require("express");
 const router = express.Router();
 
 const create = data => threadModel.create(data);
-const updateOne = (id, data) => threadModel.updateOne({ _id: id }, data);
+const updateOne = (id, data) =>
+  threadModel.updateOne({ _id: id }, { $push: { comments: data } });
 const deleteOne = id => threadModel.deleteOne({ _id: id });
-const getAll = () => threadModel.find().populate("owner");
+const getAll = () => threadModel.find().populate("comments");
+const getOne = id => threadModel.findById({ _id: id }).populate("comments");
 
 router.get("/", (req, res) => {
   getAll()
@@ -13,13 +15,19 @@ router.get("/", (req, res) => {
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
 
-router.post("/create", (req, res) => {
-  create(req.body)
-    .then(dbRes => {
-      res.status(200).send(dbRes);
-    })
-    .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+router.get("/:id", (req, res) => {
+  getOne(req.params.id)
+    .then(dbRes => res.status(200).send(dbRes))
+    .catch(dbErr =>
+      res.status(500).send({ message: "Something went wrong", dbErr })
+    );
 });
+
+// router.post("/create", (req, res) => {
+//   create(req.body)
+//     .then(dbRes => res.status(200).send(dbRes))
+//     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+// });
 
 router.patch("/:id", (req, res) => {
   updateOne(req.params.id, req.body)
@@ -38,5 +46,6 @@ module.exports = {
   deleteOne,
   updateOne,
   create,
-  getAll
+  getAll,
+  getOne
 };

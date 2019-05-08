@@ -19,6 +19,8 @@ const courseSchema = new Schema(
 
     courseModules: [{ type: Schema.Types.ObjectId, ref: "Module" }],
 
+    thread: { type: Schema.Types.ObjectId, ref: "Thread" },
+
     media: {
       image: String,
       video: String
@@ -30,7 +32,6 @@ const courseSchema = new Schema(
         ref: "Category"
       }
     ],
-    comments: { type: Schema.Types.ObjectId, ref: "Thread" },
 
     level: {
       type: String,

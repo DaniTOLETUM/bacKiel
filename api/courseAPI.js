@@ -2,12 +2,22 @@ const courseModel = require("../models/course");
 const express = require("express");
 const router = express.Router();
 const categoryAPI = require("./categoryAPI");
+const threadAPI = require("./threadAPI");
 
 const create = data => courseModel.create(data);
 const updateOne = (id, data) => courseModel.updateOne({ _id: id }, data);
 const deleteOne = id => courseModel.deleteOne({ _id: id });
-const getAll = () => courseModel.find().populate("teacher");
-// const getOne = id => courseModel.findById(id).populate("teacher");
+const getAll = () =>
+  courseModel
+    .find()
+    .populate("teacher")
+    .populate("thread");
+
+const getOne = id =>
+  courseModel
+    .findById({ _id: id })
+    .populate("teacher")
+    .populate("thread");
 
 router.get("/", (req, res) => {
   getAll()
@@ -15,10 +25,23 @@ router.get("/", (req, res) => {
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
 
+router.get("/:id", (req, res) => {
+  getOne(req.params.id)
+    .then(dbRes => res.status(200).send(dbRes))
+    .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+});
+
 router.post("/create", (req, res) => {
   create(req.body)
     .then(dbRes => {
-      res.status(200).send(dbRes);
+      threadAPI
+        .create({})
+        .then(secondRes => {
+          updateOne(dbRes._id, { thread: secondRes._id })
+            .then(thirdRes => res.status(200).send("ok"))
+            .catch(dberror => console.log(dberror));
+        })
+        .catch(dbErr => console.log(dbErr));
     })
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
