@@ -7,7 +7,8 @@ const categorySchema = new Schema({
     required: true,
     default: "general"
   },
-  courses: [{ type: Schema.Types.ObjectId, ref: "Course" }]
+  courses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+  tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }]
 });
 
 const categoryModel = mongoose.model("Category", categorySchema);

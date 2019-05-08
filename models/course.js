@@ -1,41 +1,56 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const courseSchema = new Schema({
-  title: {
-    type: String,
-    required: true
-  },
+const courseSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true
+    },
 
-  description: {
-    type: String,
-    default: "No description provided"
-  },
+    description: {
+      type: String,
+      default: "No description provided"
+    },
 
-  teacher: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
+    teacher: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
 
-  followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
 
-  content: { type: String },
+    content: [{ order: Number, lesson: Object }],
 
-  media: {
-    image: String,
-    video: String
-  },
+    media: {
+      image: String,
+      video: String
+    },
 
-  category: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Category"
+    category: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Category"
+      }
+    ],
+    comments: { type: Schema.Types.ObjectId, ref: "Thread" },
+
+    level: {
+      type: String,
+      enum: ["Beginner", "Intermediate", "Amateur"],
+      default: "Intermediate"
+    },
+
+    rate: {
+      type: Number
+    },
+
+    date: {
+      type: Date,
+      default: Date.now
     }
-  ],
-  comments: { type: Schema.Types.ObjectId, ref: "Thread" },
-
-  date: {
-    type: Date,
-    default: Date.now
+  },
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
   }
-});
+);
 
 const courseModel = mongoose.model("Course", courseSchema);
 

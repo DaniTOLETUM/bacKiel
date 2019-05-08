@@ -32,14 +32,20 @@ const userSchema = new Schema(
     },
 
     interests: [],
-    enroled: [{ type: Schema.Types.ObjectId, ref: "Course" }],
-    finished: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+
+    enrolledCourses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+
+    finishedCourses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+
     role: {
       type: String,
       enum: ["admin", "user"],
       default: "user"
-    }
+    },
+
+    ratedCourses: { type: Schema.Types.ObjectId, ref: "Course" }
   },
+
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
   }
