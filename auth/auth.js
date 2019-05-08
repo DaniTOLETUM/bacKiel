@@ -63,7 +63,10 @@ router.post('/create', (req, res, next) => {
 router.post("/login", (req, res, next) => {
   // console.log("ici", req.body)
   passport.authenticate("local", (err, theUser, failureDetails) => {
+    console.log("the passpoert error...")
     console.log(err)
+    console.log("the user...")
+    console.log(theUser)
     if (err) {
       res.status(500).json({ message: "Something went wrong authenticating user" });
       return;
@@ -90,13 +93,13 @@ router.post("/login", (req, res, next) => {
 //   res.status(200).json({ message: "Log out Success" });
 // });
 
-router.get("/loggedin", (req, res, next) => {
-  if (req.isAuthenticated()) {
-    res.status(200).json(req.user);
-    return;
-  }
-  res.status(403).json({ message: "Unauthorized" });
-});
+// router.get("/loggedin", (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     res.status(200).json(req.user);
+//     return;
+//   }
+//   res.status(403).json({ message: "Unauthorized" });
+// });
 
 
 module.exports = router;

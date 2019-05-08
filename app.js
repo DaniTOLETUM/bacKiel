@@ -54,6 +54,6 @@ const auth = require("./auth/auth");
 app.use("/api/category", categoryAPI);
 app.use("/api/user", userAPI);
 app.use("/api/course", courseAPI);
-app.use("/api/auth", auth)
+app.use("/api/auth", auth);
 
 module.exports = app;
