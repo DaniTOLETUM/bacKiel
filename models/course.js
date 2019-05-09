@@ -43,6 +43,16 @@ const courseSchema = new Schema(
       type: Number
     },
 
+    submitted: {
+      type: Boolean,
+      default: false
+    },
+
+    verified: {
+      type: Boolean,
+      default: false
+    },
+
     date: {
       type: Date,
       default: Date.now

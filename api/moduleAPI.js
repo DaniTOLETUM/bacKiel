@@ -1,12 +1,16 @@
 const moduleModel = require("../models/module");
 const express = require("express");
 const router = express.Router();
+const courseAPI = require("./courseAPI");
 
 const create = data => moduleModel.create(data);
 const updateOne = (id, data) => moduleModel.updateOne({ _id: id }, data);
 const deleteOne = id => moduleModel.deleteOne({ _id: id });
 const getAll = () => moduleModel.find().populate("teacher");
 const getOne = id => moduleModel.findById(id).populate("lessons");
+
+const addLesson = (id, lessonId) =>
+  moduleModel.updateOne({ _id: id }, { $push: { lessons: lessonId } });
 // const getOne = id => courseModel.findById(id).populate("teacher");
 
 router.get("/", (req, res) => {
@@ -18,7 +22,12 @@ router.get("/", (req, res) => {
 router.post("/create", (req, res) => {
   create(req.body)
     .then(dbRes => {
-      res.status(200).send(dbRes);
+      courseAPI
+        .addModule(req.body.courseId, dbRes._id)
+        .then(result => {
+          res.status(200).send(result);
+        })
+        .catch(error => console.log(error));
     })
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
@@ -41,5 +50,6 @@ module.exports = {
   updateOne,
   create,
   getAll,
-  getOne
+  getOne,
+  addLesson
 };

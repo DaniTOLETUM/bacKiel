@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const moduleSchema = new Schema({
   title: String,
   order: Number,
+  description: String,
   lessons: [{ type: Schema.Types.ObjectId, ref: "Lesson" }]
 });
 

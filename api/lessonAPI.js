@@ -1,6 +1,7 @@
 const lessonModel = require("../models/lesson");
 const express = require("express");
 const router = express.Router();
+const moduleAPI = require("./moduleAPI");
 
 const getAll = () => lessonModel.find();
 const create = data => lessonModel.create(data);
@@ -25,7 +26,10 @@ router.get("/:id", (req, res) => {
 router.post("/create", (req, res) => {
   create(req.body)
     .then(dbRes => {
-      res.status(200).send(dbRes);
+      moduleAPI
+        .addLesson(req.body.moduleId, dbRes._id)
+        .then(result => res.status(200).send(result))
+        .catch(error => res.status(500).send(error));
     })
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });

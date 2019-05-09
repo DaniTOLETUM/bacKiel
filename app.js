@@ -48,12 +48,16 @@ const categoryAPI = require("./api/categoryAPI").router;
 const courseAPI = require("./api/courseAPI").router;
 const userAPI = require("./api/userAPI").router;
 const commentAPI = require("./api/commentAPI").router;
+const moduleAPI = require("./api/moduleAPI").router;
+const lessonAPI = require("./api/lessonAPI").router;
 const auth = require("./auth/auth");
 
 app.use("/api/category", categoryAPI);
 app.use("/api/user", userAPI);
 app.use("/api/course", courseAPI);
 app.use("/api/comment", commentAPI);
+app.use("/api/module", moduleAPI);
+app.use("/api/lesson", lessonAPI);
 
 app.use("/api/auth", auth);
 
