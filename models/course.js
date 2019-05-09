@@ -22,7 +22,11 @@ const courseSchema = new Schema(
     thread: { type: Schema.Types.ObjectId, ref: "Thread" },
 
     media: {
-      image: String,
+      image: {
+        type: String,
+        default:
+          "https://pluralsight.imgix.net/paths/path-icons/nodejs-601628d09d.png"
+      },
       video: String
     },
 
