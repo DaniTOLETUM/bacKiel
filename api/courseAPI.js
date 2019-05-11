@@ -54,12 +54,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   getOne(req.params.id)
     .then(dbRes => {
-<<<<<<< HEAD
       res.status(200).send(dbRes);
-=======
-      console.log("la perra")
-      res.status(200).send(dbRes)
->>>>>>> 622cca0442f85f901c6ef34789e283706554ee41
     })
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
