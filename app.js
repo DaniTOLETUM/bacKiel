@@ -10,6 +10,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const session = require("express-session");
 
+const formData = require("express-form-data");
 //Sessions--------------
 const sessionStore = new session.MemoryStore();
 const app = express();
@@ -42,6 +43,7 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(formData.parse());
 
 // API ROUTERS--------------
 const categoryAPI = require("./api/categoryAPI").router;
@@ -50,6 +52,7 @@ const userAPI = require("./api/userAPI").router;
 const commentAPI = require("./api/commentAPI").router;
 const moduleAPI = require("./api/moduleAPI").router;
 const lessonAPI = require("./api/lessonAPI").router;
+const uploadAPI = require("./services/imageUpload").router;
 const auth = require("./auth/auth");
 
 app.use("/api/category", categoryAPI);
@@ -58,7 +61,7 @@ app.use("/api/course", courseAPI);
 app.use("/api/comment", commentAPI);
 app.use("/api/module", moduleAPI);
 app.use("/api/lesson", lessonAPI);
-
+app.use("/upload", uploadAPI);
 app.use("/api/auth", auth);
 
 module.exports = app;
