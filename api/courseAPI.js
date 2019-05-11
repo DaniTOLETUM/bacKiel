@@ -39,10 +39,18 @@ const getOne = id =>
     .populate("teacher")
     .populate("thread");
 
+const getUserCourses = userId => courseModel.find({ userId });
+
 router.get("/category/:category", (req, res) => {
   getAllByCategory(req.params.category)
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send(dbErr));
+});
+
+router.get("/user/course/:user", (req, res) => {
+  getUserCourses(req.params.userId)
+    .then(res => res.status(200).send(res))
+    .catch(err => res.status(500).send({ message: "Error in Db", err }));
 });
 
 router.get("/", (req, res) => {
