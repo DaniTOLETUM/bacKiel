@@ -39,7 +39,7 @@ const getOne = id =>
     .populate("teacher")
     .populate("thread");
 
-router.get("/:category", (req, res) => {
+router.get("/category/:category", (req, res) => {
   getAllByCategory(req.params.category)
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send(dbErr));
@@ -53,7 +53,9 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   getOne(req.params.id)
-    .then(dbRes => res.status(200).send(dbRes))
+    .then(dbRes => {
+      res.status(200).send(dbRes);
+    })
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
 
@@ -90,5 +92,6 @@ module.exports = {
   updateOne,
   create,
   getAll,
-  addModule
+  addModule,
+  getOne
 };
