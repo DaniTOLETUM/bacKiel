@@ -32,15 +32,15 @@ router.patch("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  console.log("here")
+  console.log("here");
   deleteOneUser(req.params.id)
     .then(dbRes => {
-      console.log("Erased fine!")
-      res.status(200).send(dbRes)
+      console.log("Erased fine!");
+      res.status(200).send(dbRes);
     })
     .catch(dbErr => {
-      console.log("Erased NOT fine!")
-      res.status(500).send({ message: "Db error TRTR", dbErr })
+      console.log("Erased NOT fine!");
+      res.status(500).send({ message: "Db error TRTR", dbErr });
     });
 });
 
