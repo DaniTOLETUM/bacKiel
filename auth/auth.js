@@ -11,7 +11,14 @@ const User = require("../models/user");
 //REGISTER
 router.post("/create", (req, res, next) => {
   console.log("auth consolelog ", req.body);
-  const { firstName, lastName, email, password, password2 } = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    password2,
+    userName
+  } = req.body;
 
   if (password != password2) {
     console.log("contraseñas no coinciden");
@@ -36,6 +43,7 @@ router.post("/create", (req, res, next) => {
       firstName,
       lastName,
       email,
+      userName,
       password: hashPass
     });
 
