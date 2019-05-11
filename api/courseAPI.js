@@ -63,6 +63,7 @@ router.get("/:id", (req, res) => {
   getOne(req.params.id)
     .then(dbRes => {
       res.status(200).send(dbRes);
+      console.log("la perra")
     })
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
