@@ -25,6 +25,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.patch("/:id", (req, res) => {
+  console.log(req.params.id, req.body.avatar);
   updateOne(req.params.id, req.body)
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));

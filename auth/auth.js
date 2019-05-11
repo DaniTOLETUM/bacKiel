@@ -1,17 +1,17 @@
 // // routes/auth-routes.js
 
-const express = require('express');
+const express = require("express");
 const router = new express.Router();
-const passport = require('passport');
-const bcrypt = require('bcryptjs');
+const passport = require("passport");
+const bcrypt = require("bcryptjs");
 
 // // require the user model !!!!
-const User = require('../models/user');
+const User = require("../models/user");
 
 //REGISTER
-router.post('/create', (req, res, next) => {
+router.post("/create", (req, res, next) => {
   console.log("auth consolelog ", req.body);
-  const { firstName, lastName, email, password, password2 } = req.body
+  const { firstName, lastName, email, password, password2 } = req.body;
 
   if (password != password2) {
     console.log("contraseñas no coinciden");
@@ -63,12 +63,14 @@ router.post('/create', (req, res, next) => {
 router.post("/login", (req, res, next) => {
   // console.log("ici", req.body)
   passport.authenticate("local", (err, theUser, failureDetails) => {
-    console.log("the passpoert error...")
-    console.log(err)
-    console.log("the user...")
-    console.log(theUser)
+    console.log("the passpoert error...");
+    console.log(err);
+    console.log("the user...");
+    console.log(theUser);
     if (err) {
-      res.status(500).json({ message: "Something went wrong authenticating user" });
+      res
+        .status(500)
+        .json({ message: "Something went wrong authenticating user" });
       return;
     }
 
@@ -77,21 +79,28 @@ router.post("/login", (req, res, next) => {
       return;
     }
 
-    req.login(theUser, (err) => {
+    req.login(theUser, err => {
       if (err) {
         res.status(500).json({ message: "Something went wrong logging in" });
         return;
       }
       // We are now logged in (notice req.user)
+
       res.status(200).json(req.user);
     });
   })(req, res, next);
 });
 
-// router.post("/logout", (req, res, next) => {
-//   req.logout();
-//   res.status(200).json({ message: "Log out Success" });
-// });
+router.post("/logout", (req, res, next) => {
+  req.logout(req.body, err => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log("yeah");
+    res.status(200).json({ message: "Log out Success" });
+  });
+});
 
 // router.get("/loggedin", (req, res, next) => {
 //   if (req.isAuthenticated()) {
@@ -100,6 +109,5 @@ router.post("/login", (req, res, next) => {
 //   }
 //   res.status(403).json({ message: "Unauthorized" });
 // });
-
 
 module.exports = router;
