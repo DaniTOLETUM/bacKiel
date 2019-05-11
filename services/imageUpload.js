@@ -12,12 +12,12 @@ router.post("/image", (req, res) => {
   const values = Object.values(req.files);
   console.log(values);
   const promises = values.map(image => cloudinary.uploader.upload(image.path));
-  Promise.all(promises).then(results =>
-    res
-      .status(200)
-      .send({ message: "Ok", results })
-      .catch("fuck")
-  );
+  Promise.all(promises)
+    .then(results => {
+      console.log(results);
+      res.status(200).send({ message: "Ok", results });
+    })
+    .catch(err => console.log(err));
 });
 
 module.exports = {
