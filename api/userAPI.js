@@ -6,7 +6,7 @@ const router = express.Router();
 
 const create = data => userModel.create(data);
 const updateOne = (id, data) => userModel.updateOne({ _id: id }, data);
-const deleteOne = id => userModel.deleteOne({ _id: id });
+const deleteOneUser = id => userModel.findByIdAndRemove(id);
 const getAll = () => userModel.find();
 const getOne = id => userModel.findById({ _id: id });
 
@@ -32,14 +32,21 @@ router.patch("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  deleteOne(req.params.id)
-    .then(dbRes => res.status(200).send(dbRess))
-    .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+  console.log("here")
+  deleteOneUser(req.params.id)
+    .then(dbRes => {
+      console.log("Erased fine!")
+      res.status(200).send(dbRes)
+    })
+    .catch(dbErr => {
+      console.log("Erased NOT fine!")
+      res.status(500).send({ message: "Db error TRTR", dbErr })
+    });
 });
 
 module.exports = {
   router,
-  deleteOne,
+  deleteOneUser,
   updateOne,
   create,
   getAll
