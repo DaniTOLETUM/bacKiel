@@ -25,7 +25,7 @@ router.post("/create", (req, res) => {
       courseAPI
         .addModule(req.body.courseId, dbRes._id)
         .then(result => {
-          res.status(200).send(result);
+          res.status(200).send(dbRes._id);
         })
         .catch(error => console.log(error));
     })

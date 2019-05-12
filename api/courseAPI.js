@@ -39,7 +39,8 @@ const getOne = id =>
     .populate("teacher")
     .populate("thread");
 
-const getUserCourses = userId => courseModel.find({ userId });
+const getUserCourses = id =>
+  courseModel.find({ teacher: { _id: id } }).populate("courseModules");
 
 router.get("/category/:category", (req, res) => {
   getAllByCategory(req.params.category)
@@ -47,10 +48,16 @@ router.get("/category/:category", (req, res) => {
     .catch(dbErr => res.status(500).send(dbErr));
 });
 
-router.get("/user/course/:user", (req, res) => {
-  getUserCourses(req.params.userId)
-    .then(res => res.status(200).send(res))
-    .catch(err => res.status(500).send({ message: "Error in Db", err }));
+router.get("/user-course/:user", (req, res) => {
+  console.log(req.params.user);
+  getUserCourses(req.params.user)
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send(err);
+    });
 });
 
 router.get("/", (req, res) => {
@@ -63,7 +70,6 @@ router.get("/:id", (req, res) => {
   getOne(req.params.id)
     .then(dbRes => {
       res.status(200).send(dbRes);
-      console.log("la perra")
     })
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
@@ -84,9 +90,10 @@ router.post("/create", (req, res) => {
 });
 
 router.patch("/:id", (req, res) => {
-  updateOne(req.params.id, req.body.courseModulesId)
-    .then(dbRes => res.status(200).send(dbRes))
-    .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
+  console.log(req.params.id, req.body);
+  // updateOne(req.params.id, req.body.courseModulesId)
+  //   .then(dbRes => res.status(200).send(dbRes))
+  //   .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
 });
 
 router.delete("/:id", (req, res) => {
