@@ -53,8 +53,10 @@ const commentAPI = require("./api/commentAPI").router;
 const moduleAPI = require("./api/moduleAPI").router;
 const lessonAPI = require("./api/lessonAPI").router;
 const uploadAPI = require("./services/imageUpload").router;
+const tagAPI = require("./api/tagAPI").router;
 const auth = require("./auth/auth");
 
+app.use("/api/tag", tagAPI);
 app.use("/api/category", categoryAPI);
 app.use("/api/user", userAPI);
 app.use("/api/course", courseAPI);

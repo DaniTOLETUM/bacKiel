@@ -2,13 +2,12 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 const tagSchema = new Schema({
-  owner: { type: Schema.Types.ObjectId, ref: "User" },
-  message: {
+  name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
 });
-
+tagSchema.index({ name: 1 }, { unique: true });
 const tagModel = mongoose.model("Tag", tagSchema);
-
 module.exports = tagModel;
