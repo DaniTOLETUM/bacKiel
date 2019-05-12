@@ -38,6 +38,8 @@ const userSchema = new Schema(
 
     finishedCourses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
 
+    lessons: [{ type: Schema.Types.ObjectId, ref: "Lesson" }],
+
     role: {
       type: String,
       enum: ["admin", "user"],

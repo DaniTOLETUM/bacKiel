@@ -5,12 +5,21 @@ const router = express.Router();
 const create = data => tagModel.create(data);
 const updateOne = (id, data) => tagModel.updateOne({ _id: id }, data);
 const deleteOne = id => tagModel.deleteOne({ _id: id });
-const getAll = () => tagModel.find().populate("owner");
+const getAll = () => tagModel.find();
+const getOne = id => tagModel.findById({ _id: id });
 
 router.get("/", (req, res) => {
   getAll()
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+});
+
+router.get("/:id", (req, res) => {
+  getOne(req.params.id)
+    .then(res => res.status(200).send(res))
+    .catch(err =>
+      res.status(500).send({ message: "Oops something went wrong", err })
+    );
 });
 
 router.post("/create", (req, res) => {
@@ -38,5 +47,6 @@ module.exports = {
   deleteOne,
   updateOne,
   create,
-  getAll
+  getAll,
+  getOne
 };
