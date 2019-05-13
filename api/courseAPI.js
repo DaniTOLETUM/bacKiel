@@ -90,6 +90,8 @@ router.post("/create", (req, res) => {
 });
 
 router.patch("/:id", (req, res) => {
+  console.log(req.body);
+  console.log(req.params.id);
   updateOne(req.params.id, req.body)
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
