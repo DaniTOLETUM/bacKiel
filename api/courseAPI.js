@@ -91,9 +91,9 @@ router.post("/create", (req, res) => {
 
 router.patch("/:id", (req, res) => {
   console.log(req.params.id, req.body);
-  // updateOne(req.params.id, req.body.courseModulesId)
-  //   .then(dbRes => res.status(200).send(dbRes))
-  //   .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
+  updateOne(req.params.id, req.body.courseModulesId)
+    .then(dbRes => res.status(200).send(dbRes))
+    .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
 });
 
 router.delete("/:id", (req, res) => {
