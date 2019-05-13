@@ -25,10 +25,10 @@ router.get("/:id", (req, res) => {
     );
 });
 
-router.patch("/add-tag", (req, res) => { });
+router.patch("/add-tag", (req, res) => {});
 
 router.post("/create", (req, res) => {
-  console.log(req.body.teacher)
+  console.log(req.body.teacher);
   create(req.body)
     .then(dbRes => {
       userAPI
@@ -51,7 +51,7 @@ router.patch("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   deleteOne(req.params.id)
-    .then(dbRes => res.status(200).send(dbRess))
+    .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
 
