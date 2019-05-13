@@ -25,14 +25,14 @@ router.get("/:id", (req, res) => {
     );
 });
 
-router.patch("/add-tag", (req, res) => {});
+router.patch("/add-tag", (req, res) => { });
 
 router.post("/create", (req, res) => {
+  console.log(req.body.teacher)
   create(req.body)
     .then(dbRes => {
-      res.status(200).send("Ok i got you fam");
       userAPI
-        .addLesson(req.body.userId, dbRes._id)
+        .addLesson(req.body.teacher, dbRes._id)
         .then(result => res.status(200).send(result))
         .catch(error => res.status(500).send(error));
       // moduleAPI
