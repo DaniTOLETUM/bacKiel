@@ -64,7 +64,6 @@ router.get("/category/:category", (req, res) => {
 });
 
 router.get("/user-course/:user", (req, res) => {
-  console.log(req.params.user);
   getUserCourses(req.params.user)
     .then(result => {
       res.status(200).send(result);
