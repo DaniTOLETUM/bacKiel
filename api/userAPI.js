@@ -12,7 +12,8 @@ const getOne = id =>
   userModel
     .findById({ _id: id })
     .populate("lessons")
-    .populate("enrolledCourses");
+    .populate("enrolledCourses")
+    .populate({ path: "enrolledCourses", populate: { path: "teacher" } });
 
 const addLesson = (id, lessonId) =>
   userModel.updateOne({ _id: id }, { $push: { lessons: lessonId } });
