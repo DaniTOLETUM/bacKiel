@@ -25,10 +25,10 @@ router.get("/:id", (req, res) => {
     );
 });
 
-router.patch("/add-tag", (req, res) => { });
+router.patch("/add-tag", (req, res) => {});
 
 router.post("/create", (req, res) => {
-  console.log(req.body.teacher)
+  console.log(req.body.teacher);
   create(req.body)
     .then(dbRes => {
       userAPI

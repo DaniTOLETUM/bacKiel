@@ -8,7 +8,7 @@ const create = data => userModel.create(data);
 const updateOne = (id, data) => userModel.updateOne({ _id: id }, data);
 const deleteOneUser = id => userModel.findByIdAndRemove(id);
 const getAll = () => userModel.find();
-const getOne = id => userModel.findById({ _id: id });
+const getOne = id => userModel.findById({ _id: id }).populate("lessons");
 const addLesson = (id, lessonId) =>
   userModel.updateOne({ _id: id }, { $push: { lessons: lessonId } });
 
