@@ -5,7 +5,7 @@ const categoryAPI = require("./categoryAPI");
 const threadAPI = require("./threadAPI");
 
 const create = data => courseModel.create(data);
-
+const getRandom = index => courseModel.findOne().skip(index);
 const getAllByCategory = category =>
   courseModel
     .find({ category })
@@ -40,7 +40,21 @@ const getOne = id =>
     .populate("thread");
 
 const getUserCourses = id =>
-  courseModel.find({ teacher: { _id: id } }).populate("courseModules");
+  courseModel
+    .find({ teacher: { _id: id } })
+    .populate("courseModules")
+    .populate({ path: "courseModules", populate: { path: "lessons" } });
+
+router.get("/random/course", (req, res) => {
+  courseModel.count().exec(function(err, count) {
+    const random = Math.floor(Math.random() * count);
+    getRandom(random)
+      .skip(random)
+      .exec(function(err, course) {
+        console.log(course);
+      });
+  });
+});
 
 router.get("/category/:category", (req, res) => {
   getAllByCategory(req.params.category)
