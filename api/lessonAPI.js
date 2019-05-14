@@ -51,7 +51,7 @@ router.patch("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   deleteOne(req.params.id)
-    .then(dbRes => res.status(200).send(dbRess))
+    .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
 
