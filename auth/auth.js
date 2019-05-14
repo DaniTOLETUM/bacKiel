@@ -15,6 +15,7 @@ router.post("/create", (req, res, next) => {
     firstName,
     lastName,
     email,
+    role,
     password,
     password2,
     userName
@@ -43,6 +44,7 @@ router.post("/create", (req, res, next) => {
       firstName,
       lastName,
       email,
+      role,
       userName,
       password: hashPass
     });
