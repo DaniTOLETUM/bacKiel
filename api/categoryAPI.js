@@ -6,10 +6,16 @@ const create = data => categoryModel.create(data);
 const updateOne = (id, data) => categoryModel.updateOne({ _id: id }, data);
 const deleteOne = id => categoryModel.deleteOne({ _id: id });
 const getAll = () => categoryModel.find().populate("courses");
-const getOne = id => categoryModel.findById({ _id: id });
+const getOne = id => categoryModel.findById({ _id: id }).populate("courses");
 
 router.get("/", (req, res) => {
   getAll()
+    .then(dbRes => res.status(200).send(dbRes))
+    .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+});
+
+router.get("/:id", (req, res) => {
+  getOne(req.params.id)
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
