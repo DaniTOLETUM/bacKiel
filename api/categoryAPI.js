@@ -5,7 +5,7 @@ const router = express.Router();
 const create = data => categoryModel.create(data);
 const updateOne = (id, data) => categoryModel.updateOne({ _id: id }, data);
 const deleteOne = id => categoryModel.deleteOne({ _id: id });
-const getAll = () => categoryModel.find();
+const getAll = () => categoryModel.find().populate("courses");
 const getOne = id => categoryModel.findById({ _id: id });
 
 router.get("/", (req, res) => {
