@@ -14,6 +14,12 @@ router.get("/", (req, res) => {
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
 });
 
+router.get("/:id", (req, res) => {
+  getOne(req.params.id)
+    .then(dbRes => res.status(200).send(dbRes))
+    .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+});
+
 router.post("/create", (req, res) => {
   console.log(req.body);
   create(req.body)
