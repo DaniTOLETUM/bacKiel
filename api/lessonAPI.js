@@ -40,7 +40,7 @@ router.post("/create", (req, res) => {
       //   .then(result => res.status(200).send(result))
       //   .catch(error => res.status(500).send(error));
     })
-    .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+    .catch(dbErr => res.send(500).send(dbErr));
 });
 
 router.patch("/:id", (req, res) => {
