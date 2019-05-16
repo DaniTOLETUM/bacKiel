@@ -2,7 +2,16 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 const threadSchema = new Schema({
-  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
+  comments: [
+    {
+      owner: { type: Schema.Types.ObjectId, ref: "User" },
+      message: {
+        type: String,
+        required: true
+      },
+      date: Date.now()
+    }
+  ]
 });
 
 const threadModel = mongoose.model("Thread", threadSchema);
