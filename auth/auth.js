@@ -10,7 +10,6 @@ const User = require("../models/user");
 
 //REGISTER
 router.post("/create", (req, res, next) => {
-  console.log("auth consolelog ", req.body);
   const {
     firstName,
     lastName,

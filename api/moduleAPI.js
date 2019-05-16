@@ -7,7 +7,7 @@ const create = data => moduleModel.create(data);
 const updateOne = (id, data) => moduleModel.updateOne({ _id: id }, data);
 const deleteOne = id => moduleModel.deleteOne({ _id: id });
 const getAll = () => moduleModel.find().populate("teacher");
-const getOne = id => moduleModel.findById(id).populate("lessons");
+const getOne = id => moduleModel.findById({ _id: id }).populate("lessons");
 
 const addLesson = (id, lessonId) =>
   moduleModel.updateOne({ _id: id }, { $push: { lessons: lessonId } });
@@ -17,6 +17,12 @@ router.get("/", (req, res) => {
   getAll()
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+});
+
+router.get("/:id", (req, res) => {
+  getOne(req.params.id)
+    .then(result => res.send(result))
+    .catch(err => res.send(err));
 });
 
 router.post("/create", (req, res) => {
