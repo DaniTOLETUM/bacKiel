@@ -42,6 +42,9 @@ const getOne = id =>
     .populate("courseModules")
     .populate({ path: "courseModules", populate: { path: "lessons" } });
 
+const rate = (id, userId) =>
+  courseModel.updateOne({ _id: id }, { $addToSet: { likes: userId } });
+
 const getUserCourses = id =>
   courseModel
     .find({ teacher: { _id: id } })
@@ -72,7 +75,6 @@ router.get("/user-course/:user", (req, res) => {
       res.status(200).send(result);
     })
     .catch(err => {
-      console.log(err);
       res.status(500).send(err);
     });
 });
@@ -89,6 +91,12 @@ router.get("/:id", (req, res) => {
       res.status(200).send(dbRes);
     })
     .catch(dbErr => res.status(500).send({ message: "Db error", dbErr }));
+});
+
+router.patch("/rate/:id", (req, res) => {
+  rate(req.params.id, req.body.userId)
+    .then(result => console.log(result))
+    .catch(err => console.log(err));
 });
 
 router.post("/create", (req, res) => {
@@ -111,8 +119,6 @@ router.post("/create", (req, res) => {
 });
 
 router.patch("/:id", (req, res) => {
-  console.log(req.body);
-  console.log(req.params.id);
   updateOne(req.params.id, req.body)
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));

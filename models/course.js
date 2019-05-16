@@ -42,10 +42,7 @@ const courseSchema = new Schema(
       enum: ["Beginner", "Intermediate", "Advanced"],
       default: "Intermediate"
     },
-
-    rate: {
-      type: Number
-    },
+    likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
 
     submitted: {
       type: Boolean,
