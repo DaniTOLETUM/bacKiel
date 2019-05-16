@@ -38,12 +38,9 @@ const getOne = id =>
     .findById({ _id: id })
     .populate("teacher")
     .populate("thread")
-<<<<<<< HEAD
-    .populate("category");
-=======
+    .populate("category")
     .populate("courseModules")
     .populate({ path: "courseModules", populate: { path: "lessons" } });
->>>>>>> cdb3573a42980cc734dda931c595cb8b081733ec
 
 const getUserCourses = id =>
   courseModel
