@@ -41,8 +41,8 @@ router.patch("/:id", (req, res) => {
 
 router.patch("/tag-upd/:id", (req, res) => {
   updateTagsOfOne(req.params.id, req.body)
-    .then(result => res.send(result))
-    .catch(err => console.error(err));
+    .then(result => res.status(200).send(result))
+    .catch(err => console.log(err));
 });
 
 router.delete("/:id", (req, res) => {
