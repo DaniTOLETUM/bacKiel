@@ -39,6 +39,10 @@ router.patch("/:id", (req, res) => {
     .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
 });
 
+router.patch("/user-enrolls/:userId", (req, res) => {
+  console.log(req.params, req.body);
+});
+
 router.delete("/:id", (req, res) => {
   console.log("here");
   deleteOneUser(req.params.id)
