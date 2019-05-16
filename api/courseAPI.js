@@ -98,7 +98,11 @@ router.post("/create", (req, res) => {
         .create({})
         .then(secondRes => {
           updateOne(dbRes._id, { thread: secondRes._id })
-            .then(thirdRes => res.status(200).send("ok"))
+            .then(thirdRes =>
+              categoryAPI.updateWithOneCourse(dbRes.category[0], dbRes._id)
+            )
+            .then(result => res.send(result))
+            .catch(erroor => res.send(erroor))
             .catch(dberror => console.log(dberror));
         })
         .catch(dbErr => console.log(dbErr));

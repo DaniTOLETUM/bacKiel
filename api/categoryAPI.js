@@ -14,6 +14,9 @@ const getOne = id => categoryModel.findById({ _id: id }).populate("courses");
 const updateTagsOfOne = (id, data) =>
   categoryModel.updateOne({ _id: id }, { $push: { tags: data._id } });
 
+const updateWithOneCourse = (id, courseId) =>
+  categoryModel.updateOne({ _id: id }, { $push: { courses: courseId } });
+
 router.get("/", (req, res) => {
   getAll()
     .then(dbRes => res.status(200).send(dbRes))
@@ -57,5 +60,6 @@ module.exports = {
   updateOne,
   create,
   getAll,
-  getOne
+  getOne,
+  updateWithOneCourse
 };
