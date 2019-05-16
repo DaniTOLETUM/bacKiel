@@ -5,8 +5,14 @@ const router = express.Router();
 const create = data => categoryModel.create(data);
 const updateOne = (id, data) => categoryModel.updateOne({ _id: id }, data);
 const deleteOne = id => categoryModel.deleteOne({ _id: id });
-const getAll = () => categoryModel.find().populate("courses");
+const getAll = () =>
+  categoryModel
+    .find()
+    .populate("courses")
+    .populate("tags");
 const getOne = id => categoryModel.findById({ _id: id }).populate("courses");
+const updateTagsOfOne = (id, data) =>
+  categoryModel.updateOne({ _id: id }, { $push: { tags: data._id } });
 
 router.get("/", (req, res) => {
   getAll()
@@ -31,6 +37,12 @@ router.patch("/:id", (req, res) => {
   updateOne(req.params.id, req.body)
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
+});
+
+router.patch("/tag-upd/:id", (req, res) => {
+  updateTagsOfOne(req.params.id, req.body)
+    .then(result => res.send(result))
+    .catch(err => console.error(err));
 });
 
 router.delete("/:id", (req, res) => {
