@@ -9,7 +9,10 @@ const threadSchema = new Schema({
         type: String,
         required: true
       },
-      date: Date.now()
+      date: {
+        type: Date,
+        default: Date.now
+      }
     }
   ]
 });
