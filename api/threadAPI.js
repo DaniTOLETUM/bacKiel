@@ -3,8 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const create = data => threadModel.create(data);
-const updateOne = (id, data) =>
-  threadModel.updateOne({ _id: id }, { $push: { comments: data } });
+const updateOne = (id, data) => threadModel.updateOne({ _id: id }, data);
 const deleteOne = id => threadModel.deleteOne({ _id: id });
 const getAll = () => threadModel.find().populate("comments");
 const getOne = id => threadModel.findById({ _id: id }).populate("comments");
@@ -30,8 +29,9 @@ router.get("/:id", (req, res) => {
 // });
 
 router.patch("/:id", (req, res) => {
+  console.log(req.params.id, req.body);
   updateOne(req.params.id, req.body)
-    .then(dbRes => res.status(200).send(dbRes))
+    .then(dbRes => console.log(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
 });
 

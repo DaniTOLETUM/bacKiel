@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 const threadSchema = new Schema({
   comments: [
     {
-      owner: { type: Schema.Types.ObjectId, ref: "User" },
+      owner: {
+        type: String,
+        required: true
+      },
+
       message: {
         type: String,
         required: true
