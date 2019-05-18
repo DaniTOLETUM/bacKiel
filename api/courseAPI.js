@@ -37,7 +37,10 @@ const getOne = id =>
   courseModel
     .findById({ _id: id })
     .populate("teacher")
-    .populate("thread")
+    .populate({
+      path: "thread",
+      populate: { path: "comments.owner" }
+    })
     .populate("category")
     .populate("courseModules")
     .populate({ path: "courseModules", populate: { path: "lessons" } });
