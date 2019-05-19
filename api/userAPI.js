@@ -3,6 +3,7 @@ const userModel = require("../models/user");
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
+const _ = require("lodash");
 
 const create = data => userModel.create(data);
 const updateOne = (id, data) => userModel.updateOne({ _id: id }, data);
@@ -33,10 +34,27 @@ router.get("/:id", (req, res) => {
 });
 
 router.patch("/:id", (req, res) => {
-  console.log(req.params.id, req.body.avatar);
   updateOne(req.params.id, req.body)
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
+});
+
+router.get("/public/:id", (req, res) => {
+  getOne(req.params.id)
+    .then(dbRes => {
+      const user = _.pick(dbRes, [
+        "userName",
+        "lastName",
+        "firstName",
+        "avatar",
+        "lessons",
+        "enrolledCourses",
+        "finishedCourses",
+        "description"
+      ]);
+      res.status(200).send(user);
+    })
+    .catch(dbErr => res.status(500).send(dbRess));
 });
 
 router.patch("/user-enrolls/:userId", (req, res) => {
