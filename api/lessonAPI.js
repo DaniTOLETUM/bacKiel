@@ -28,7 +28,6 @@ router.get("/:id", (req, res) => {
 router.patch("/add-tag", (req, res) => {});
 
 router.post("/create", (req, res) => {
-  console.log(req.body.teacher);
   create(req.body)
     .then(dbRes => {
       userAPI
@@ -44,6 +43,7 @@ router.post("/create", (req, res) => {
 });
 
 router.patch("/:id", (req, res) => {
+  console.log(req.body);
   updateOne(req.params.id, req.body)
     .then(dbRes => res.status(200).send(dbRes))
     .catch(dbErr => res.status(500).send({ message: "Db Error", dbErr }));
