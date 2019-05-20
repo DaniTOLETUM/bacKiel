@@ -52,6 +52,7 @@ const getUserCourses = id =>
   courseModel
     .find({ teacher: { _id: id } })
     .populate("courseModules")
+    .populate("category")
     .populate({ path: "courseModules", populate: { path: "lessons" } });
 
 router.get("/random/course", (req, res) => {
